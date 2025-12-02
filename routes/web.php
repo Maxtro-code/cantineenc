@@ -14,3 +14,7 @@ Route::get( '/dashboard', function () {
     return view('dashboard');
 }) -> name('dashboard');
 
+Route::get( '/creation-etudiant', function () {
+    return view('pages/creation-etudiant');
+}) -> name('creation-etudiant');
+
