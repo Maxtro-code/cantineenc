@@ -7,3 +7,7 @@ Mon application doit avoir :
 Ce que fait mon application :
 - page de login
 - page d'enregistrement étudiant
+
+commande pour lancer l'application :
+php artisan serve
+npm run dev
