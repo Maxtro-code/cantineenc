@@ -95,42 +95,11 @@
                 </div>
 
                 <button type="submit" class="w-full bg-[--enc-dark] text-white py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs shadow-xl hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all mt-4">
-                    Se connecter au portail
+                    Se connecter
                 </button>
             </form>
         </div>
 
-        <div class="lg:w-[400px] glass-dark p-12 text-white flex flex-col justify-between relative">
-            <div class="relative z-10">
-                <span class="text-4xl mb-6 block">🍽️</span>
-                <h3 class="text-2xl font-bold mb-8 leading-snug">
-                    "L'excellence au cœur de <span class="text-[--enc-gold]">Paris 17</span>, jusque dans votre assiette."
-                </h3>
-
-                <div class="space-y-8">
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                        <span class="text-[--enc-gold] font-bold mt-1 text-xl">01</span>
-                        <div>
-                            <p class="font-bold text-sm">Menus</p>
-                            <p class="text-xs text-gray-300">Produits frais et locaux chaque jour.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                        <span class="text-[--enc-red] font-bold mt-1 text-xl">02</span>
-                        <div>
-                            <p class="font-bold text-sm">Mon Solde</p>
-                            <p class="text-xs text-gray-300">Rechargement sécurisé en ligne.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative z-10 pt-10 border-t border-white/10 mt-12">
-                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em]">
-                    70 bd Bessières, 75017 Paris
-                </p>
-            </div>
-        </div>
     </main>
 
     <footer class="mt-12 text-[10px] text-gray-500 font-bold uppercase tracking-[0.5em]">
