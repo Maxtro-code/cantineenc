@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    // Appliquer le middleware auth à toutes les méthodes
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // Middleware 'auth' géré dans routes/web.php via le groupe middleware(['auth'])
 
     // Affiche les réservations de l'utilisateur connecté
     public function index()
@@ -33,7 +29,7 @@ class ReservationController extends Controller
             // Transmettre la variable à la vue
             //dd($reservations);
             //return view('reservations.index', compact('reservations'));
-            return view('welcome', compact('reservations'));
+            return view('reservations.index', compact('reservations'));
 
 
         } catch (\Exception $e) {
