@@ -19,27 +19,31 @@
 
         body {
             font-family: 'Instrument Sans', sans-serif;
-            /* Dégradé de fond inspiré de l'ENC */
+            /* Arrière-plan dégradé */
             background: linear-gradient(135deg, #f9fafb 0%, #ffe4e1 50%, #f3f4f6 100%);
-            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        /* Effet de verre transparent (Glassmorphism) */
+        /* Effet de verre transparent */
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
+        /* Effet de verre sombre pour le côté droit */
         .glass-dark {
-            background: rgba(74, 13, 18, 0.85);
+            background: rgba(74, 13, 18, 0.9);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Animation du fond */
+        /* Blobs décoratifs */
         .bg-blob {
             position: absolute;
             width: 500px;
@@ -51,59 +55,97 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 relative">
+<body>
 
 <div class="bg-blob top-[-100px] left-[-100px]"></div>
 <div class="bg-blob bottom-[-100px] right-[-100px]"></div>
 
 <div class="w-full max-w-5xl flex flex-col items-center">
 
-    <div class="mb-10 text-center scale-90 lg:scale-100">
-        <div class="flex items-baseline gap-2">
-            <span class="text-[--enc-gold] font-black text-5xl italic tracking-tighter drop-shadow-sm">ENC</span>
-            <span class="text-[--enc-red] font-black text-5xl uppercase tracking-tighter drop-shadow-sm">Bessières</span>
+    <div class="mb-10 text-center">
+        <div class="flex items-baseline justify-center gap-2">
+            <span class="text-[--enc-gold] font-black text-4xl lg:text-5xl italic tracking-tighter drop-shadow-sm">ENC</span>
+            <span class="text-[--enc-red] font-black text-4xl lg:text-5xl uppercase tracking-tighter drop-shadow-sm">Bessières</span>
         </div>
-        <p class="text-[10px] font-bold uppercase tracking-[0.5em] text-[--enc-dark] mt-3 opacity-70">
-            École Nationale de Commerce Paris
+        <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-[--enc-dark] mt-2 opacity-70">
+            Portail de Restauration Scolaire
         </p>
     </div>
 
     <main class="w-full flex flex-col lg:flex-row shadow-[0_32px_64px_-16px_rgba(74,13,18,0.2)] rounded-[3rem] overflow-hidden glass-card">
 
-        <div class="flex-1 p-10 lg:p-16">
-            <div class="mb-10">
+        <div class="flex-1 p-8 lg:p-14">
+            <div class="mb-8">
                 <h2 class="text-3xl font-bold tracking-tight text-[--enc-dark]">Espace Restauration</h2>
-                <div class="h-1.5 w-16 bg-[--enc-red] mt-4 rounded-full"></div>
+                <div class="h-1.5 w-12 bg-[--enc-gold] mt-4 rounded-full"></div>
             </div>
+
+            @if ($errors->any())
+                <div class="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs rounded-r-lg">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
 
                 <div>
-                    <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Identifiant Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="prenom.nom@enc-bessieres.org"
-                           class="w-full bg-white/50 border border-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-[--enc-red] focus:bg-white transition-all shadow-sm">
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Adresse Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="prenom.nom@enc.fr"
+                           class="w-full bg-white border border-gray-100 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-[--enc-red] transition-all shadow-sm text-sm">
                 </div>
 
                 <div>
                     <div class="flex justify-between items-center mb-2 ml-1">
                         <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500">Mot de passe</label>
-                        <a href="#" class="text-[10px] font-bold text-[--enc-red] uppercase tracking-widest hover:text-[--enc-dark]">Oublié ?</a>
+                        <a href="{{ route('password.request') }}" class="text-[10px] font-bold text-[--enc-red] uppercase tracking-widest hover:text-[--enc-dark]">Oublié ?</a>
                     </div>
-                    <input type="password" name="password" required
-                           class="w-full bg-white/50 border border-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-[--enc-red] focus:bg-white transition-all shadow-sm">
+                    <input id="password" type="password" name="password" required
+                           class="w-full bg-white border border-gray-100 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-[--enc-red] transition-all shadow-sm">
                 </div>
 
-                <button type="submit" class="w-full bg-[--enc-dark] text-white py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs shadow-xl hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all mt-4">
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" id="remember" name="remember" class="w-4 h-4 rounded accent-[#f53003]">
+                    <label for="remember" class="text-sm text-gray-500 font-medium italic">Rester connecté</label>
+                </div>
+
+                <button type="submit" class="w-full bg-[--enc-dark] text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-black transition-all">
                     Se connecter
                 </button>
             </form>
+
+            <div class="mt-8 text-center text-xs">
+                <a href="{{ route('register') }}" class="text-gray-400 hover:text-[--enc-red] transition-colors">
+                    Nouvel étudiant ? <span class="font-bold border-b border-[--enc-red]">Créer un compte</span>
+                </a>
+            </div>
         </div>
 
+        <div class="lg:w-[350px] glass-dark p-10 text-white flex flex-col justify-between hidden lg:flex relative overflow-hidden border-l border-white/5">
+            <div class="relative z-10">
+                <div class="w-10 h-1 bg-[--enc-gold] mb-8 rounded-full"></div>
+                <h3 class="text-xl font-bold mb-6 italic leading-relaxed">Mangez bien, réussissez mieux à l'ENC.</h3>
+
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-xs text-gray-300">
+                        <span class="text-[--enc-gold]">●</span> Consultation des menus hebdo
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-gray-300">
+                        <span class="text-[--enc-gold]">●</span> Gestion simplifiée du badge
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text-[9px] uppercase tracking-widest text-gray-500 font-bold">
+                ENC Bessières Paris - 17e
+            </div>
+        </div>
     </main>
 
-    <footer class="mt-12 text-[10px] text-gray-500 font-bold uppercase tracking-[0.5em]">
-        &copy; {{ date('Y') }} ENC BESSIÈRES - SERVICE NUMÉRIQUE
+    <footer class="mt-10 text-[10px] text-gray-400 font-bold uppercase tracking-[0.5em]">
+        &copy; 2026 Ecole Nationale de Commerce Bessières
     </footer>
 </div>
 

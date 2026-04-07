@@ -6,8 +6,9 @@ use App\Http\Controllers\ReservationController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/register', function () {
-    return view('registration');
+
+Route::post('/register', function () {
+    return view('auth/register');
 });
 
 Route::get( '/info', function () {

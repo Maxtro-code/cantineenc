@@ -1,60 +1,133 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inscription - ENC Bessières</title>
 
-        <x-validation-errors class="mb-4" />
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+    <script src="https://cdn.tailwindcss.com"></script>
 
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+    <style>
+        :root {
+            --enc-red: #f53003;
+            --enc-dark: #4a0d12;
+            --enc-gold: #f8b803;
+        }
+        body {
+            font-family: 'Instrument Sans', sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #ffe4e1 50%, #f3f4f6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-dark {
+            background: rgba(74, 13, 18, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="w-full max-w-5xl flex flex-col items-center">
+
+    <div class="mb-10 text-center">
+        <div class="flex items-center justify-center gap-2">
+            <span class="text-[--enc-gold] font-black text-4xl lg:text-5xl italic tracking-tighter">ENC</span>
+            <span class="text-[--enc-red] font-black text-4xl lg:text-5xl uppercase tracking-tighter">Bessières</span>
+        </div>
+        <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-[--enc-dark] mt-2 opacity-60">
+            Portail de Restauration Scolaire
+        </p>
+    </div>
+
+    <main class="w-full flex flex-col lg:flex-row shadow-2xl rounded-[3rem] overflow-hidden glass-card">
+
+        <div class="flex-1 p-8 lg:p-14">
+            <div class="mb-8 text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-[--enc-dark]">S'inscrire</h2>
+                <div class="h-1.5 w-12 bg-[--enc-gold] mt-4 rounded-full"></div>
             </div>
 
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
+            @if ($errors->any())
+                <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs font-bold rounded-r-lg">
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+            <form method="POST" action="{{ route('register') }}" class="space-y-5">
+                @csrf
 
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
+                <div class="text-left">
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1 ml-1">Nom Complet</label>
+                    <input type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
+                           class="w-full bg-white border border-gray-100 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-[--enc-red] transition-all text-sm shadow-sm">
+                </div>
+
+                <div class="text-left">
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1 ml-1">Email Académique</label>
+                    <input type="email" name="email" value="{{ old('email') }}" required autocomplete="username"
+                           class="w-full bg-white border border-gray-100 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-[--enc-red] transition-all text-sm shadow-sm">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="text-left">
+                        <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1 ml-1">Mot de passe</label>
+                        <input type="password" name="password" required autocomplete="new-password"
+                               class="w-full bg-white border border-gray-100 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-[--enc-red] transition-all text-sm shadow-sm">
+                    </div>
+                    <div class="text-left">
+                        <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1 ml-1">Confirmation</label>
+                        <input type="password" name="password_confirmation" required autocomplete="new-password"
+                               class="w-full bg-white border border-gray-100 rounded-2xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-[--enc-red] transition-all text-sm shadow-sm">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-[--enc-dark] text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-xs shadow-lg hover:bg-black transition-all mt-4">
+                    Créer mon compte
+                </button>
+            </form>
+
+            <div class="mt-8 text-center text-xs text-gray-400">
+                Déjà un compte ?
+                <a href="{{ route('login') }}" class="text-[--enc-red] font-bold ml-1 hover:underline">Se connecter</a>
             </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+        </div>
+
+        <div class="lg:w-[380px] glass-dark p-12 lg:p-14 text-white flex flex-col justify-between hidden lg:flex border-l border-white/5">
+            <div class="relative z-10 text-left">
+                <div class="w-10 h-1 bg-[--enc-gold] mb-10 rounded-full"></div>
+                <h3 class="text-2xl font-bold mb-8 italic leading-tight">
+                    Rejoignez la <span class="text-[--enc-gold]">restauration</span> de l'ENC.
+                </h3>
+                <p class="text-xs text-gray-300 leading-relaxed mb-6">
+                    Créez votre profil pour accéder aux menus, gérer votre badge et réserver vos repas.
+                </p>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 text-[9px] uppercase tracking-[0.3em] text-gray-500 font-bold text-left">
+                ENC Bessières Paris - 17e
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 text-[10px] text-gray-400 font-bold uppercase tracking-[0.5em]">
+        &copy; 2026 ECOLE NATIONALE DE COMMERCE BESSIÈRES
+    </footer>
+</div>
+
+</body>
+</html>
