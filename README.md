@@ -1,59 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍽️ Cantine ENC Bessières
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Application web de gestion de la restauration scolaire de l'ENC Bessières (Paris 17e), développée dans le cadre du BTS SIO SLAM — Session 2026.
 
-## About Laravel
+Cette application remplace le système existant en corrigeant ses failles de sécurité (mots de passe en clair, gestion de session partielle) tout en conservant les mêmes fonctionnalités.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Fonctionnalités
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Connexion sécurisée (mots de passe hachés avec bcrypt)
+- Inscription désactivée — les comptes sont créés par l'administrateur
+- Tableau de bord avec les prochains repas réservés
+- Consultation du menu de la semaine
+- Réservation de repas (lundi au vendredi uniquement)
+- Annulation d'une réservation à venir
+- Panneau d'administration : créer des comptes, gérer les rôles
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Stack technique
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Élément | Technologie |
+|---|---|
+| Framework | Laravel 11 |
+| Authentification | Laravel Jetstream + Fortify |
+| Interface | Blade + Tailwind CSS + Alpine.js |
+| Base de données | MySQL 8 |
+| ORM | Eloquent |
+| Gestion de versions | Git + GitHub |
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ⚙️ Installation
 
-### Premium Partners
+### Prérequis
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- PHP 8.2+
+- Composer
+- Node.js 20+ / npm
+- MySQL 8
+- Laragon (recommandé sur Windows)
 
-## Contributing
+### Étapes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**1. Cloner le dépôt**
+```bash
+git clone https://github.com/Maxtro-code/cantineenc.git
+cd cantineenc
+```
 
-## Code of Conduct
+**2. Installer les dépendances PHP**
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**3. Configurer l'environnement**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+Puis éditer `.env` et renseigner la base de données :
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=cantineenc
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**4. Créer la base de données**
 
-## License
+Ouvrir phpMyAdmin (ou MySQL) et créer une base nommée `cantineenc`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**5. Lancer les migrations et le seeder**
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+**6. Installer les dépendances front-end**
+```bash
+npm install
+npm run build
+```
+
+**7. Lancer le serveur**
+```bash
+php artisan serve
+```
+
+L'application est accessible sur [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 🔑 Comptes de démonstration
+
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| Administrateur | `admin@enc-bessieres.org` | `AdminENC2026!` |
+| Étudiant | `marie.dupont@enc-bessieres.org` | `Soleil42!MD` |
+
+---
+
+## 📁 Structure du projet
+
+```
+cantineenc/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── AdminController.php       # Gestion des utilisateurs
+│   │   │   ├── MenuController.php        # Menu de la semaine
+│   │   │   └── ReservationController.php # Réservations
+│   │   └── Middleware/
+│   │       └── AdminMiddleware.php       # Protection routes admin
+│   └── Models/
+│       ├── User.php
+│       └── Reservation.php
+├── database/
+│   ├── migrations/                       # Schéma de la base de données
+│   └── seeders/
+│       └── DatabaseSeeder.php            # Données de démonstration
+├── resources/views/
+│   ├── auth/                             # Pages login / register
+│   ├── pages/
+│   │   ├── admin/                        # Panneau administration
+│   │   ├── menu-semaine.blade.php        # Menu hebdomadaire
+│   │   └── info-user_cantine.blade.php   # Informations pratiques
+│   ├── reservations/
+│   │   └── index.blade.php               # Gestion des réservations
+│   ├── dashboard.blade.php               # Tableau de bord
+│   └── welcome.blade.php                 # Page de connexion
+└── routes/
+    └── web.php                           # Toutes les routes
+```
+
+---
+
+## 🔒 Sécurité
+
+- Mots de passe hachés avec **bcrypt** via `Hash::make()`
+- Inscription désactivée (routes `/register` bloquées)
+- Middleware `auth` sur toutes les pages privées
+- Middleware `admin` sur le panneau d'administration
+- Protection **CSRF** sur tous les formulaires
+- Vérification d'appartenance sur la suppression de réservation (anti-IDOR)
+- Génération de mot de passe temporaire conforme aux recommandations **ANSSI**
+
+---
+
+## 📋 Règles métier
+
+- Les réservations sont possibles **du lundi au vendredi uniquement**
+- Une seule réservation par jour par utilisateur
+- Impossible d'annuler une réservation passée
+- La création de comptes est réservée aux administrateurs
+
+---
+
+## 👤 Auteur
+
+**COCO Mathis** — BTS SIO SLAM, ENC Bessières — Session 2026

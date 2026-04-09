@@ -1,60 +1,39 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <x-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
-                </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="5;url={{ route('login') }}">
+    <title>Inscription désactivée - ENC Bessières</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --enc-red: #f53003; --enc-dark: #4a0d12; --enc-gold: #f8b803; }
+        body { font-family: sans-serif; background: linear-gradient(135deg, #f9fafb 0%, #ffe4e1 100%); min-height: 100vh; }
+    </style>
+</head>
+<body class="flex items-center justify-center p-6">
+<div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-10 text-center">
+    <div class="flex items-baseline justify-center gap-2 mb-6">
+        <span class="text-[--enc-gold] font-black text-3xl italic">ENC</span>
+        <span class="text-[--enc-red] font-black text-3xl uppercase">Bessières</span>
+    </div>
+    <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-2xl">🔒</span>
+    </div>
+    <h2 class="text-xl font-bold text-[--enc-dark] mb-3">Inscription désactivée</h2>
+    <p class="text-sm text-gray-500 mb-6">
+        L'inscription en ligne n'est pas disponible.<br>
+        Pour créer un compte, contactez l'administration de la cantine.
+    </p>
+    <a href="mailto:restauration@enc-bessieres.org"
+       class="block mb-4 text-sm font-semibold text-[--enc-red] hover:underline">
+        restauration@enc-bessieres.org
+    </a>
+    <p class="text-xs text-gray-400 mb-6">Redirection automatique dans 5 secondes…</p>
+    <a href="{{ route('login') }}"
+       class="inline-block px-6 py-3 bg-[--enc-dark] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-black transition">
+        Retour à la connexion
+    </a>
+</div>
+</body>
+</html>

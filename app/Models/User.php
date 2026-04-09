@@ -29,7 +29,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
     ];
+
+    /**
+     * Vérifie si l'utilisateur est administrateur.
+     */
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
+    }
+
+    /**
+     * Relation : réservations de l'utilisateur.
+     */
+    public function reservations()
+    {
+        return $this->hasMany(\App\Models\Reservation::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
