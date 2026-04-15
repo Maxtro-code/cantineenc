@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // Tarif d'un repas à la cantine (en euros)
+    'tarif_repas' => env('TARIF_REPAS', 3.50),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

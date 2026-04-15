@@ -9,10 +9,11 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date'];
+    protected $fillable = ['user_id', 'date', 'montant'];
 
     protected $casts = [
-        'date' => 'date',
+        'date'    => 'date',
+        'montant' => 'decimal:2',
     ];
 
     public function user()

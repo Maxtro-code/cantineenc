@@ -30,6 +30,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'solde',
     ];
 
     /**
@@ -38,6 +39,26 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return (bool) $this->is_admin;
+    }
+
+    /**
+     * Débite le solde. Retourne false si solde insuffisant.
+     */
+    public function debiter(float $montant): bool
+    {
+        if ($this->solde < $montant) {
+            return false;
+        }
+        $this->decrement('solde', $montant);
+        return true;
+    }
+
+    /**
+     * Crédite le solde (rechargement par un admin).
+     */
+    public function crediter(float $montant): void
+    {
+        $this->increment('solde', $montant);
     }
 
     /**

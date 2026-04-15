@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservations',  [ReservationController::class, 'index'])->name('reservations.index');
     Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
     Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+    Route::post('/reservations/recharger', [ReservationController::class, 'recharger'])->name('reservations.recharger');
 
     // ─── ROUTES RÉSERVÉES AUX ADMINISTRATEURS ────────────────────────────────
     Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -55,5 +56,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/utilisateurs',         [AdminController::class, 'store'])->name('users.store');
         Route::patch('/utilisateurs/{user}/admin', [AdminController::class, 'toggleAdmin'])->name('users.toggle-admin');
         Route::delete('/utilisateurs/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
+
+        // Gestion des réservations (admin peut réserver pour n'importe quel étudiant)
+        Route::get('/reservations',           [AdminController::class, 'indexReservations'])->name('reservations.index');
+        Route::post('/reservations',          [AdminController::class, 'storeReservation'])->name('reservations.store');
+        Route::delete('/reservations/{reservation}', [AdminController::class, 'destroyReservation'])->name('reservations.destroy');
+
+        // Recharge du solde d'un étudiant
+        Route::post('/utilisateurs/{user}/crediter', [AdminController::class, 'crediter'])->name('users.crediter');
     });
 });
